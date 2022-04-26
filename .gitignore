@@ -1,3 +1,5 @@
+#pacote node
+*.package-lock.json
 # Logs
 logs
 *.log
