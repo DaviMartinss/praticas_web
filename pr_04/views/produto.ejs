@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Produto</title>
+</head>
+<body>
+
+    <table border="3px">
+        <legend style="font-size: 18px; background-color: aqua; font-weight: bold;">Loja - Produtos</legend>
+        <h3>Produtos Cadastrados</h3>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Categoria</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Autor</th>
+            </tr>
+        </thead>
+
+        <% for (let i=0; i < 1; i++) {%>
+
+            <tr>
+                <td>
+                    <#%=listaProduto[i].id%>
+                </td>
+                <td>
+                    <#%=listaProduto[i].categoria%>
+                </td>
+                <td>
+                    <#%=listaProduto[i].name%>
+                </td>
+                <td>
+                    <#%=listaProduto[i].descricao%>
+                </td>
+                <td>
+                    <#%=listaProduto[i].preco%>
+                </td>
+                <td>
+                    AUTOR
+                </td>
+            </tr>
+        <%}%>  
+    </table>
+    
+    <a href="/">Início</a>  
+
+    <br><br><br><br>
+
+    <a href="/produto-novo">Cadastrar Produto</a>
+
+</body>
+</html>

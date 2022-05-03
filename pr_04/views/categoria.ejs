@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="utilitarios/funcoesCategoria.js"></script>
+    <title>Categoria</title>
+		
+		<style>
+			select[readonly] {
+  				pointer-events: none;
+  				touch-action: none;
+			}
+		</style>	
+</head>
+<body>	
+		
+    <form action="/categoria-salvar" method="post">
+
+        <label>Chave da Categoria</label>
+        <input type="text" name="chaveCategoria" value="1"><br><br>
+
+        <label>Nome da Categoria</label>
+        <input type="text" name="valor" value="batman"><br><br>
+
+        <label>Campos Customizados</label>
+		<input type="text" id="campCustomizado">
+		<button type="button" onclick="addCampo()">Adicionar campo</button><br><br>
+			
+		 <select readonly="readonly" tabindex="-1" aria-disabled="true" id="campCustomizados" name="campCustomizados" multiple="multiple">
+			 <option selected hidden></option>
+		 </select>
+        
+        <input type="submit" value="Cadastrar">
+    </form>
+
+    
+
+    <br><br><br><br>
+    
+    <table border="3px">
+        <thead>
+            <tr>
+                <th>Chave</th>
+                <th>Valor</th>
+				<th>Campos Customizados</th>
+                <th>Deletar</th>
+            </tr>
+        </thead>
+
+        <% for (let i=0; i < listaCategoria.length; i++) {%>
+
+            <tr>
+                <td>
+                    <%=listaCategoria[i].chave%>
+                </td>
+                <td>
+                    <%=listaCategoria[i].valor%>
+                </td>
+				<td>
+					<% listaCategoria[i].listaCampoCustomizado.forEach(campo => { %> 
+					    <%= campo.nome %> 
+						</br>
+                    <% }); %> 
+                </td>
+				
+                <td>
+  
+                    <input type="button" value="Deletar" onclick="confirmacao(<%=listaCategoria[i].chave%>)" style="background-color: red;">
+              
+                </td>
+
+            </tr>
+        <%}%>
+    </table>
+</body>
+</html>
