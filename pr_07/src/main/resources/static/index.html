@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta>
+        <script>
+
+        </script>
+    </head>
+    <body>
+        <h1>SPA - AJAX</h1>
+        <div>
+        	<h1> TURMA</h1>
+        	
+            Codigo: <input type="number" id="codigo"> <br/>
+            Disciplina: <input type="text" id="disciplina"> <br/>
+            Semestre: <input type="number" id="semestre"> <br/>
+            
+            <input type="button" value="Save" onclick="saveTurma()">
+            
+            <input type="button" value="Update" onclick="upTurma()">
+            
+            <input type="button" value="Delete" onclick="delTurma()">
+            
+        </div>    
+        
+         <div>
+        	<h1>TURMA - ALUNO</h1>
+        	
+            Codigo da Turma: <input type="number" id="codigoTurma"> <br/>
+            Matrícula: <input type="number" id="matricula"> <br/>
+            Nome: <input type="text" id="nome"> <br/>
+            Email: <input type="text" id="email"> <br/>
+            
+            <input type="button" value="Save" onclick="saveAluno()">
+            
+            <input type="button" value="Delete" onclick="delAluno()">
+            
+        </div>  
+        
+        
+        <div id="listaTurma"></div>
+        
+        <script type="text/javascript">
+        
+	        function saveTurma(){
+		
+				let codigo = document.getElementById("codigo").value;
+	            let disciplina = document.getElementById("disciplina").value;
+	            let semestre = document.getElementById("semestre").value;
+	            
+	            newTurma = {
+						    codigo: parseInt(codigo), 
+	            		    disciplina: disciplina, 
+	            		    semestre: parseInt(semestre)
+	            		   };
+	            		  
+	           
+	            var xhr = new XMLHttpRequest();
+	            
+	            xhr.open("POST", '/api/turma', true);
+	
+	            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	
+	            xhr.send(JSON.stringify(newTurma));
+				
+			}
+			
+			function saveAluno(){
+		
+				let codigo = document.getElementById("codigoTurma").value;
+	            let matricula = document.getElementById("matricula").value;
+	            let nome = document.getElementById("nome").value;
+	            let email = document.getElementById("email").value;
+	            
+	            newAluno = {
+						    matricula: parseInt(matricula), 
+	            		    nome: nome, 
+	            		    email: email
+	            		   };
+	            		  
+	           
+	            var xhr = new XMLHttpRequest();
+	            
+	            xhr.open("POST", '/api/turma/' + codigo + '/alunos' , true);
+	
+	            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	
+	            xhr.send(JSON.stringify(newAluno));
+				
+			}
+			
+			function upTurma(){
+		
+				let codigo = document.getElementById("codigo").value;
+	            let disciplina = document.getElementById("disciplina").value;
+	            let semestre = document.getElementById("semestre").value;
+	            
+	            updateTurma = {
+						    	codigo: parseInt(codigo), 
+	            		    	disciplina: disciplina, 
+	            		    	semestre: parseInt(semestre)
+	            		   	  };
+	           
+	            var xhr = new XMLHttpRequest();
+	            
+	            xhr.open("PUT", '/api/turma/' + codigo, true);
+	
+	            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	
+	            xhr.send(JSON.stringify(updateTurma));
+				
+			}
+			
+			function delTurma(){
+		
+				let codigo = document.getElementById("codigo").value;
+	            
+	            var xhr = new XMLHttpRequest();
+	            
+	            xhr.open("DELETE", '/api/turma/' + codigo, true);
+	
+	            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	
+	            xhr.send();
+				
+			}
+			
+			function delAluno(){
+		
+				let codigo = document.getElementById("codigoTurma").value;
+				let matricula = document.getElementById("matricula").value;
+	            
+	            var xhr = new XMLHttpRequest();
+	            
+	            xhr.open("DELETE", '/api/turma/' + codigo + '/alunos/' + matricula, true);
+	
+	            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	
+	            xhr.send();
+				
+			}
+
+    </script>
+    
+    </body>
+</html>
