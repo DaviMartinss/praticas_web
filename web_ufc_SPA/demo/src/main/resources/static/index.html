@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta>
+        <script>
+
+        </script>
+    </head>
+    <body>
+        <h1>SPA - AJAX</h1>
+        <div>
+            Id: <input type="number" id="prodId"> <br/>
+            Name: <input type="text" id="prodName"> <br/>
+            Price: <input type="number" id="prodPrice"> <br/>
+            <input type="button" value="Save" onclick="save()">
+        </div>    
+        <div id="listaProdutos"></div>
+        <script type="text/javascript">
+            var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "/api/produto", true);
+                xhttp.onload = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        produtos = JSON.parse(xhttp.responseText);
+                        //produtosDiv = document.getElementById("produtos");
+       
+                        //produtosDiv.innerHTML = JSON.stringify(produtos);
+                       
+                        listaProdutosDiv = document.getElementById("listaProdutos");
+                        lista = '<ul>';
+                       
+                        for (const i in produtos){
+                            let p = produtos[i];
+                            lista += '<li>' + p.id + ' - ' + p.name + ' - ' + p.price + '</li>';
+                        }
+                       
+                        lista += '<ul>';
+                        listaProdutosDiv.innerHTML = lista;
+                    }
+                };
+                xhttp.send();
+        function save(){
+            let id = document.getElementById("prodId").value;
+            let name = document.getElementById("prodName").value;
+            let price = document.getElementById("prodPrice").value;
+            newprod = {id: parseInt(id), name: name, price: parseFloat(price)};
+           
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/api/produto', true);
+
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            xhr.send(JSON.stringify(newprod));
+
+            var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "/api/produto", true);
+                xhttp.onload = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        produtos = JSON.parse(xhttp.responseText);
+                        //produtosDiv = document.getElementById("produtos");
+       
+                        //produtosDiv.innerHTML = JSON.stringify(produtos);
+                       
+                        listaProdutosDiv = document.getElementById("listaProdutos");
+                        lista = '<ul>';
+                       
+                        for (const i in produtos){
+                            let p = produtos[i];
+                            lista += '<li>' + p.id + ' - ' + p.name + ' - ' + p.price + '</li>';
+                        }
+                       
+                        lista += '<ul>';
+                        listaProdutosDiv.innerHTML = lista;
+                    }
+                };
+                xhttp.send();
+        }
+
+    </script>
+    
+    </body>
+</html>
