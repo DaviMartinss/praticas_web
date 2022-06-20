@@ -1,7 +1,5 @@
 package web.angular;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,24 +15,20 @@ public class HeroService {
 	@Autowired
 	HeroRepository heroRepository;
 	
-	@GetMapping("/api/hero")
-	public List<Hero> getHeroList() {
-		return (List<Hero>) heroRepository.findAll();
+	public Iterable<Hero> getHeroList() {
+		return heroRepository.findAll();
 	}
 	
-	@GetMapping("/api/hero/{id}")
 	public Hero getHero(@PathVariable int id) {
 		return heroRepository.findById(id).get();
 	}
 	
-	@PostMapping("/api/hero")
 	public void addHero(@RequestBody Hero hero) {
 
 		heroRepository.save(hero);
 	}
 	
-	@PutMapping("/api/hero/{id}")
-	public Boolean updateTurma(@PathVariable int id, @RequestBody Hero hero) {
+	public Boolean updateHero(@PathVariable int id, @RequestBody Hero hero) {
 
 		Hero heroGET = getHero(id);
 
@@ -45,8 +39,7 @@ public class HeroService {
 		return true;
 	}
 	
-	@DeleteMapping("/api/turma/{id}")
-	public Boolean deleteTurma(@PathVariable int id) {
+	public Boolean deleteHero(@PathVariable int id) {
 
 		Hero hero = getHero(id);
 
